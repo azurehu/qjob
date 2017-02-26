@@ -1,0 +1,1 @@
+dir *.jar /b >jar.txt

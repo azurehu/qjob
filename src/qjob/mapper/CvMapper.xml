@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"./mybatis-3-mapper.dtd">
+<mapper namespace="qjob.dao.CvMapper" >
+  <resultMap id="BaseResultMap" type="qjob.model.Cv" >
+    <id column="cvid" property="cvid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="personname" property="personname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="worktimes" property="worktimes" jdbcType="INTEGER" />
+    <result column="birth" property="birth" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="onedescription" property="onedescription" jdbcType="VARCHAR" />
+    <result column="wposition" property="wposition" jdbcType="VARCHAR" />
+    <result column="worktype" property="worktype" jdbcType="VARCHAR" />
+    <result column="wlocation" property="wlocation" jdbcType="VARCHAR" />
+    <result column="wsalary" property="wsalary" jdbcType="INTEGER" />
+    <result column="adddescription" property="adddescription" jdbcType="VARCHAR" />
+    <result column="perdescription" property="perdescription" jdbcType="VARCHAR" />
+    <result column="cvheadurl" property="cvheadurl" jdbcType="VARCHAR" />
+    	<collection property="cv_studyexpList" ofType="qjob.model.Cv_studyexperience">
+		    <id column="edexpid" property="edexpid" jdbcType="INTEGER" />
+    	<result column="username" property="username" jdbcType="VARCHAR" />
+    	<result column="school" property="school" jdbcType="VARCHAR" />
+    	<result column="major" property="major" jdbcType="VARCHAR" />
+    	<result column="graduate" property="graduate" jdbcType="VARCHAR" />
+    	<result column="education" property="education" jdbcType="VARCHAR" />
+		    </collection>
+			<collection property="cv_workexpList" ofType="qjob.model.Cv_workexperience">	
+				    <id column="expid" property="expid" jdbcType="INTEGER" />
+    			<result column="username" property="username" jdbcType="VARCHAR" />
+    			<result column="excompany" property="excompany" jdbcType="VARCHAR" />
+    			<result column="exposition" property="exposition" jdbcType="VARCHAR" />
+    			<result column="jointime" property="jointime" jdbcType="VARCHAR" />
+    			<result column="leavetime" property="leavetime" jdbcType="VARCHAR" />
+    			<result column="workdescription" property="workdescription" jdbcType="VARCHAR" />    
+		    </collection>
+		    <collection property="cv_projectexpList" ofType="qjob.model.Cv_projectexperience">	
+			    <id column="projectid" property="projectid" jdbcType="INTEGER" />
+    		<result column="username" property="username" jdbcType="VARCHAR" />
+    		<result column="porname" property="porname" jdbcType="VARCHAR" />
+    		<result column="duty" property="duty" jdbcType="VARCHAR" />
+    		<result column="starttime" property="starttime" jdbcType="VARCHAR" />
+    		<result column="endtime" property="endtime" jdbcType="VARCHAR" />
+    		<result column="prodescription" property="prodescription" jdbcType="VARCHAR" />
+		    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cvid, username, personname, sex, education, worktimes, birth, location, phone, email, 
+    onedescription, wposition, worktype, wlocation, wsalary, adddescription, perdescription, 
+    cvheadurl
+  </sql>
+    <sql id="CVAll" >
+    b.cvid, b.username, b.personname, b.sex, b.education, b.worktimes, b.birth, b.location, b.phone, b.email, 
+    b.onedescription, b.wposition, b.worktype, b.wlocation, b.wsalary, b.adddescription, b.perdescription, 
+    b.cvheadurl,
+    
+    s.edexpid, s.username, s.school, s.major, s.graduate, s.education,
+    
+    w.expid, w.username, w.excompany, w.exposition, w.jointime, w.leavetime, w.workdescription,
+    
+    p.projectid, p.username, p.porname, p.duty, p.starttime, p.endtime, p.prodescription
+  </sql>
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cv
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="cvStudy" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    b.username, s.edexpid, s.username, s.school, s.major, s.graduate, s.education 
+    from cv b,cv_studyexperience s
+    where b.username = s.username and b.username = #{username,jdbcType=VARCHAR} 
+  </select>
+  
+    <select id="cvWork" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    b.username, w.expid, w.username, w.excompany, w.exposition, w.jointime, w.leavetime, w.workdescription 
+    from cv b,cv_workexperience w
+    where b.username = w.username and b.username = #{username,jdbcType=VARCHAR} 
+  </select>
+  
+  <select id="cvPorject" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    b.username, p.projectid, p.username, p.porname, p.duty, p.starttime, p.endtime, p.prodescription
+    from cv b,cv_projectexperience p
+    where b.username = p.username and b.username = #{username,jdbcType=VARCHAR} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cv
+    where cvid = #{cvid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertCv" parameterType="qjob.model.Cv" >
+    insert into cv (username, personname, sex,birth,
+    education,phone,location,email, onedescription)
+    values (#{username,jdbcType=VARCHAR}, #{personname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{birth,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+      #{location,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{onedescription,jdbcType=VARCHAR})
+  </insert>
+ <!--   <insert id="insert" parameterType="qjob.model.Cv" >
+    insert into cv (cvid, username, personname, 
+      sex, education, worktimes, 
+      birth, location, phone, 
+      email, onedescription, wposition, 
+      worktype, wlocation, wsalary, 
+      adddescription, perdescription, cvheadurl
+      )
+    values (#{cvid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{personname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{worktimes,jdbcType=INTEGER}, 
+      #{birth,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{onedescription,jdbcType=VARCHAR}, #{wposition,jdbcType=VARCHAR}, 
+      #{worktype,jdbcType=VARCHAR}, #{wlocation,jdbcType=VARCHAR}, #{wsalary,jdbcType=INTEGER}, 
+      #{adddescription,jdbcType=VARCHAR}, #{perdescription,jdbcType=VARCHAR}, #{cvheadurl,jdbcType=VARCHAR}
+      )
+  </insert>-->
+  <insert id="insertSelective" parameterType="qjob.model.Cv" >
+    insert into cv
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cvid != null" >
+        cvid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="personname != null" >
+        personname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="worktimes != null" >
+        worktimes,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="onedescription != null" >
+        onedescription,
+      </if>
+      <if test="wposition != null" >
+        wposition,
+      </if>
+      <if test="worktype != null" >
+        worktype,
+      </if>
+      <if test="wlocation != null" >
+        wlocation,
+      </if>
+      <if test="wsalary != null" >
+        wsalary,
+      </if>
+      <if test="adddescription != null" >
+        adddescription,
+      </if>
+      <if test="perdescription != null" >
+        perdescription,
+      </if>
+      <if test="cvheadurl != null" >
+        cvheadurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cvid != null" >
+        #{cvid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="personname != null" >
+        #{personname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="worktimes != null" >
+        #{worktimes,jdbcType=INTEGER},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="onedescription != null" >
+        #{onedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="wposition != null" >
+        #{wposition,jdbcType=VARCHAR},
+      </if>
+      <if test="worktype != null" >
+        #{worktype,jdbcType=VARCHAR},
+      </if>
+      <if test="wlocation != null" >
+        #{wlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="wsalary != null" >
+        #{wsalary,jdbcType=INTEGER},
+      </if>
+      <if test="adddescription != null" >
+        #{adddescription,jdbcType=VARCHAR},
+      </if>
+      <if test="perdescription != null" >
+        #{perdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="cvheadurl != null" >
+        #{cvheadurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qjob.model.Cv" >
+    update cv
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="personname != null" >
+        personname = #{personname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="worktimes != null" >
+        worktimes = #{worktimes,jdbcType=INTEGER},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="onedescription != null" >
+        onedescription = #{onedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="wposition != null" >
+        wposition = #{wposition,jdbcType=VARCHAR},
+      </if>
+      <if test="worktype != null" >
+        worktype = #{worktype,jdbcType=VARCHAR},
+      </if>
+      <if test="wlocation != null" >
+        wlocation = #{wlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="wsalary != null" >
+        wsalary = #{wsalary,jdbcType=INTEGER},
+      </if>
+      <if test="adddescription != null" >
+        adddescription = #{adddescription,jdbcType=VARCHAR},
+      </if>
+      <if test="perdescription != null" >
+        perdescription = #{perdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="cvheadurl != null" >
+        cvheadurl = #{cvheadurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cvid = #{cvid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qjob.model.Cv" >
+    update cv
+    set username = #{username,jdbcType=VARCHAR},
+      personname = #{personname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      worktimes = #{worktimes,jdbcType=INTEGER},
+      birth = #{birth,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      onedescription = #{onedescription,jdbcType=VARCHAR},
+      wposition = #{wposition,jdbcType=VARCHAR},
+      worktype = #{worktype,jdbcType=VARCHAR},
+      wlocation = #{wlocation,jdbcType=VARCHAR},
+      wsalary = #{wsalary,jdbcType=INTEGER},
+      adddescription = #{adddescription,jdbcType=VARCHAR},
+      perdescription = #{perdescription,jdbcType=VARCHAR},
+      cvheadurl = #{cvheadurl,jdbcType=VARCHAR}
+    where cvid = #{cvid,jdbcType=INTEGER}
+  </update>
+</mapper>

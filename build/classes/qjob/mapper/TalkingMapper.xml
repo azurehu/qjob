@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"./mybatis-3-mapper.dtd">
+<mapper namespace="qjob.dao.TalkingMapper" >
+  <resultMap id="BaseResultMap" type="qjob.model.Talking" >
+    <id column="talkid" property="talkid" jdbcType="INTEGER" />
+    <result column="u1" property="u1" jdbcType="VARCHAR" />
+    <result column="u2" property="u2" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    talkid, u1, u2, message, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from talking
+    where talkid = #{talkid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from talking
+    where talkid = #{talkid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="qjob.model.Talking" >
+    insert into talking (talkid, u1, u2, 
+      message, time)
+    values (#{talkid,jdbcType=INTEGER}, #{u1,jdbcType=VARCHAR}, #{u2,jdbcType=VARCHAR}, 
+      #{message,jdbcType=VARCHAR}, #{time,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="qjob.model.Talking" >
+    insert into talking
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="talkid != null" >
+        talkid,
+      </if>
+      <if test="u1 != null" >
+        u1,
+      </if>
+      <if test="u2 != null" >
+        u2,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="talkid != null" >
+        #{talkid,jdbcType=INTEGER},
+      </if>
+      <if test="u1 != null" >
+        #{u1,jdbcType=VARCHAR},
+      </if>
+      <if test="u2 != null" >
+        #{u2,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qjob.model.Talking" >
+    update talking
+    <set >
+      <if test="u1 != null" >
+        u1 = #{u1,jdbcType=VARCHAR},
+      </if>
+      <if test="u2 != null" >
+        u2 = #{u2,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+    </set>
+    where talkid = #{talkid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qjob.model.Talking" >
+    update talking
+    set u1 = #{u1,jdbcType=VARCHAR},
+      u2 = #{u2,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      time = #{time,jdbcType=DATE}
+    where talkid = #{talkid,jdbcType=INTEGER}
+  </update>
+</mapper>

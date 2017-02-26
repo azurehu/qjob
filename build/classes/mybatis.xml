@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"./mybatis-3-config.dtd">
+<!-- 根标签 -->
+<configuration>
+<!-- 
+<typeAliases >
+<typeAlias type="qjob.Company" alias="Company"/>
+<typeAlias type="qjob.Cv_invite" alias="Cv_invite"/>
+<typeAlias type="qjob.Cv_projectexperience" alias="Cv_projectexperience"/>
+<typeAlias type="qjob.Cv_studyexperience" alias="Cv_studyexperience"/>
+<typeAlias type="qjob.Cv_watch" alias="Cv_watch"/>
+<typeAlias type="qjob.Cv_workexperience" alias="Cv_workexperience"/>
+<typeAlias type="qjob.Cv" alias="Cv"/>
+<typeAlias type="qjob.Friends" alias="Friends"/>
+<typeAlias type="qjob.Pos_cv" alias="Pos_cv"/>
+<typeAlias type="qjob.Position" alias="Position"/>
+<typeAlias type="qjob.model.User" alias="User"/>
+</typeAliases> -->
+
+
+<mappers>
+ <mapper resource="qjob/mapper/CompanyMapper.xml"/>
+<!--<mapper resource="qjob.Cv_inviteMapper"/>
+
+<mapper resource="qjob.Cv_watchMapper"/>
+
+<mapper resource="qjob.FriendsMapper"/>-->
+<mapper resource="qjob/mapper/Pos_cvMapper.xml"/>
+<mapper resource="qjob/mapper/PositionMapper.xml"/>
+<mapper resource="qjob/mapper/UserMapper.xml"/>
+<mapper resource="qjob/mapper/CvMapper.xml"/>
+<mapper resource="qjob/mapper/Cv_projectexperienceMapper.xml"/>
+<mapper resource="qjob/mapper/Cv_studyexperienceMapper.xml"/>
+<mapper resource="qjob/mapper/Cv_workexperienceMapper.xml"/>
+
+</mappers>
+</configuration>

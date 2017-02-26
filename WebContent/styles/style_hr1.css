@@ -1,0 +1,68 @@
+@CHARSET "UTF-8";
+* {
+    font-family:微软雅黑, Arial;font-size:15.5px;color: #727b7f
+}
+
+body{
+    background-color:#fbfbea;
+}
+
+a{
+    color:gray;
+    text-decoration:none;
+}
+
+a:hover{
+    color:red;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+a:visited{
+    text-decoration:none;
+}
+
+img{
+    height:100%;
+    vertical-align:middle;
+}
+
+fieldset{
+    padding:10px;
+}
+
+legend{
+    font-size:16px;
+    font-weight:bold;
+}
+
+input[type="text"]{
+    width:150px;
+}
+
+input[type="password"]{
+    width:150px;
+}
+
+textarea{
+    width:150px;
+    text-align:left;
+}
+
+h1, h2, h3 {
+    text-align:center;
+}
+.page_center{
+	width: 50%; 
+	margin-left:150px;
+	padding-left:150px;
+	padding-right:70px; 
+	background-color: #daeef5;
+}
+.list{
+	background-color:#daeef5; 
+}
+.list2{
+	background-color:#80ff80; 
+}
+

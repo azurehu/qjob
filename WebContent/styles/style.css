@@ -1,0 +1,6 @@
+@charset "utf-8";
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% "Microsoft Yahei";background:lightgray}
+.container {margin-top:200px;width:80%;position:fixed;_position:absolute;height:300px;text-align: center;margin-left: 0px;margin-top:13%;}
+.container h3 span{color: #000000;font-size:31px;line-height:40px;}

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"./mybatis-3-mapper.dtd">
+<mapper namespace="qjob.dao.Cv_workexperienceMapper" >
+  <resultMap id="BaseResultMap" type="qjob.model.Cv_workexperience" >
+    <id column="expid" property="expid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="excompany" property="excompany" jdbcType="VARCHAR" />
+    <result column="exposition" property="exposition" jdbcType="VARCHAR" />
+    <result column="jointime" property="jointime" jdbcType="VARCHAR" />
+    <result column="leavetime" property="leavetime" jdbcType="VARCHAR" />
+    <result column="workdescription" property="workdescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    expid, username, excompany, exposition, jointime, leavetime, workdescription
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cv_workexperience
+    where expid = #{expid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cv_workexperience
+    where expid = #{expid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="qjob.model.Cv_workexperience" >
+    insert into cv_workexperience (expid, username, excompany, 
+      exposition, jointime, leavetime, 
+      workdescription)
+    values (#{expid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{excompany,jdbcType=VARCHAR}, 
+      #{exposition,jdbcType=VARCHAR}, #{jointime,jdbcType=VARCHAR}, #{leavetime,jdbcType=VARCHAR}, 
+      #{workdescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="qjob.model.Cv_workexperience" >
+    insert into cv_workexperience
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="expid != null" >
+        expid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="excompany != null" >
+        excompany,
+      </if>
+      <if test="exposition != null" >
+        exposition,
+      </if>
+      <if test="jointime != null" >
+        jointime,
+      </if>
+      <if test="leavetime != null" >
+        leavetime,
+      </if>
+      <if test="workdescription != null" >
+        workdescription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="expid != null" >
+        #{expid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="excompany != null" >
+        #{excompany,jdbcType=VARCHAR},
+      </if>
+      <if test="exposition != null" >
+        #{exposition,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null" >
+        #{jointime,jdbcType=VARCHAR},
+      </if>
+      <if test="leavetime != null" >
+        #{leavetime,jdbcType=VARCHAR},
+      </if>
+      <if test="workdescription != null" >
+        #{workdescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qjob.model.Cv_workexperience" >
+    update cv_workexperience
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="excompany != null" >
+        excompany = #{excompany,jdbcType=VARCHAR},
+      </if>
+      <if test="exposition != null" >
+        exposition = #{exposition,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null" >
+        jointime = #{jointime,jdbcType=VARCHAR},
+      </if>
+      <if test="leavetime != null" >
+        leavetime = #{leavetime,jdbcType=VARCHAR},
+      </if>
+      <if test="workdescription != null" >
+        workdescription = #{workdescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where expid = #{expid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qjob.model.Cv_workexperience" >
+    update cv_workexperience
+    set username = #{username,jdbcType=VARCHAR},
+      excompany = #{excompany,jdbcType=VARCHAR},
+      exposition = #{exposition,jdbcType=VARCHAR},
+      jointime = #{jointime,jdbcType=VARCHAR},
+      leavetime = #{leavetime,jdbcType=VARCHAR},
+      workdescription = #{workdescription,jdbcType=VARCHAR}
+    where expid = #{expid,jdbcType=INTEGER}
+  </update>
+</mapper>

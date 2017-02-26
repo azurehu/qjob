@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"./mybatis-3-mapper.dtd">
+<mapper namespace="qjob.dao.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="qjob.model.Company" >
+    <id column="comid" property="comid" jdbcType="INTEGER" />
+    <result column="comname" property="comname" jdbcType="VARCHAR" />
+    <result column="comlocation" property="comlocation" jdbcType="VARCHAR" />
+    <result column="comdescription" property="comdescription" jdbcType="VARCHAR" />
+    <result column="comtype" property="comtype" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comid, comname, comlocation, comdescription, comtype, username
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from company
+    where comid = #{comid,jdbcType=INTEGER}
+  </select>
+  <select id="selectCompany" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from company
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company
+    where comid = #{comid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="qjob.model.Company" >
+    insert into company (comid, comname, comlocation, 
+      comdescription, comtype,username)
+    values (#{comid,jdbcType=INTEGER}, #{comname,jdbcType=VARCHAR}, #{comlocation,jdbcType=VARCHAR}, 
+      #{comdescription,jdbcType=VARCHAR}, #{comtype,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="qjob.model.Company" >
+    insert into company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comid != null" >
+        comid,
+      </if>
+      <if test="comname != null" >
+        comname,
+      </if>
+      <if test="comlocation != null" >
+        comlocation,
+      </if>
+      <if test="comdescription != null" >
+        comdescription,
+      </if>
+      <if test="comtype != null" >
+        comtype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comid != null" >
+        #{comid,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="comlocation != null" >
+        #{comlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="comdescription != null" >
+        #{comdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="comtype != null" >
+        #{comtype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qjob.model.Company" >
+    update company
+    <set >
+      <if test="comname != null" >
+        comname = #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="comlocation != null" >
+        comlocation = #{comlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="comdescription != null" >
+        comdescription = #{comdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="comtype != null" >
+        comtype = #{comtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comid = #{comid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qjob.model.Company" >
+    update company
+    set comname = #{comname,jdbcType=VARCHAR},
+      comlocation = #{comlocation,jdbcType=VARCHAR},
+      comdescription = #{comdescription,jdbcType=VARCHAR},
+      comtype = #{comtype,jdbcType=VARCHAR}
+    where comid = #{comid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"./mybatis-3-mapper.dtd">
+<mapper namespace="qjob.dao.Cv_studyexperienceMapper" >
+  <resultMap id="BaseResultMap" type="qjob.model.Cv_studyexperience" >
+    <id column="edexpid" property="edexpid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="graduate" property="graduate" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    edexpid, username, school, major, graduate, education
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cv_studyexperience
+    where edexpid = #{edexpid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cv_studyexperience
+    where edexpid = #{edexpid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="qjob.model.Cv_studyexperience" >
+    insert into cv_studyexperience (edexpid, username, school, 
+      major, graduate, education
+      )
+    values (#{edexpid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{major,jdbcType=VARCHAR}, #{graduate,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="qjob.model.Cv_studyexperience" >
+    insert into cv_studyexperience
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="edexpid != null" >
+        edexpid,
+      </if>
+      <if test="username!= null" >
+        username,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="graduate != null" >
+        graduate,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="edexpid != null" >
+        #{edexpid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null" >
+        #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qjob.model.Cv_studyexperience" >
+    update cv_studyexperience
+    <set >
+      <if test="username!= null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null" >
+        graduate = #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where edexpid = #{edexpid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qjob.model.Cv_studyexperience" >
+    update cv_studyexperience
+    set username = #{username,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      graduate = #{graduate,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR}
+    where edexpid = #{edexpid,jdbcType=INTEGER}
+  </update>
+</mapper>

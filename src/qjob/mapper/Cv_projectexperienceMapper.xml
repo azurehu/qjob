@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"./mybatis-3-mapper.dtd">
+<mapper namespace="qjob.dao.Cv_projectexperienceMapper" >
+  <resultMap id="BaseResultMap" type="qjob.model.Cv_projectexperience" >
+    <id column="projectid" property="projectid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="porname" property="porname" jdbcType="VARCHAR" />
+    <result column="duty" property="duty" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="VARCHAR" />
+    <result column="endtime" property="endtime" jdbcType="VARCHAR" />
+    <result column="prodescription" property="prodescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    projectid, username, porname, duty, starttime, endtime, prodescription
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cv_projectexperience
+    where projectid = #{projectid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cv_projectexperience
+    where projectid = #{projectid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="qjob.model.Cv_projectexperience" >
+    insert into cv_projectexperience (projectid, username, porname, 
+      duty, starttime, endtime, 
+      prodescription)
+    values (#{projectid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{porname,jdbcType=VARCHAR}, 
+      #{duty,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{prodescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="qjob.model.Cv_projectexperience" >
+    insert into cv_projectexperience
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectid != null" >
+        projectid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="porname != null" >
+        porname,
+      </if>
+      <if test="duty != null" >
+        duty,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="prodescription != null" >
+        prodescription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectid != null" >
+        #{projectid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="porname != null" >
+        #{porname,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="prodescription != null" >
+        #{prodescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qjob.model.Cv_projectexperience" >
+    update cv_projectexperience
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="porname != null" >
+        porname = #{porname,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        duty = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="prodescription != null" >
+        prodescription = #{prodescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where projectid = #{projectid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qjob.model.Cv_projectexperience" >
+    update cv_projectexperience
+    set username = #{username,jdbcType=VARCHAR},
+      porname = #{porname,jdbcType=VARCHAR},
+      duty = #{duty,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=VARCHAR},
+      endtime = #{endtime,jdbcType=VARCHAR},
+      prodescription = #{prodescription,jdbcType=VARCHAR}
+    where projectid = #{projectid,jdbcType=INTEGER}
+  </update>
+</mapper>

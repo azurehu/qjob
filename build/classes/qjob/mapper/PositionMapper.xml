@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"./mybatis-3-mapper.dtd">
+<mapper namespace="qjob.dao.PositionMapper">
+  	<resultMap id="BaseResultMap" type="qjob.model.Position" >
+    <id column="posid" property="posid" jdbcType="INTEGER" />
+    <result column="posname" property="posname" jdbcType="VARCHAR" />
+    <result column="salary" property="salary" jdbcType="VARCHAR" />
+    <result column="postype" property="postype" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="VARCHAR" />
+    <result column="posdescription" property="posdescription" jdbcType="VARCHAR" />
+     <result column="status" property="status" jdbcType="INTEGER" />
+<result column="username" property="username" jdbcType="VARCHAR" />
+ <association property="company"  javaType="qjob.model.Company" >
+   <id property="username" column="username" />
+   <result property="comname" column="comname" jdbcType="VARCHAR" />
+   <result property="comlocation" column="comlocation" jdbcType="VARCHAR" />
+   <result property="comtype" column="comtype" jdbcType="VARCHAR" />
+   <result property="comdescription" column="comdescription" jdbcType="VARCHAR" />
+ </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    posid, posname, salary, postype, education, times, posdescription, status, username
+  </sql>
+  <sql id="position_company" >
+  	p.posid, p.posname, p.salary, p.postype, p.education, p.times, p.posdescription, p.status, p.username,c.username,c.comname,c.comlocation,c.comtype,c.comdescription
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from position
+    where posid = #{posid,jdbcType=INTEGER}
+  </select>
+  
+
+  
+   <select id="selectPosition" resultMap="BaseResultMap" >
+    select 
+      <include refid="position_company" />
+      from position p,company c
+   	 where  status = 1 and p.username = c.username   limit #{0,jdbcType=INTEGER},#{1,jdbcType=INTEGER}
+  </select>
+  
+     <select id="selectPositionAll" resultMap="BaseResultMap" >
+    select 
+      <include refid="position_company" />
+      from position p,company c
+   	 where  status = 1 and p.username = c.username 
+  </select>
+  
+  <select id="selectPositionInfo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+      <include refid="position_company" />
+      from position p,company c
+    where  status = 1 and p.username = c.username and posid = #{posid,jdbcType=INTEGER}
+  </select>
+  <select id="viewAllPr" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from position
+    where username = #{username,jdbcType=VARCHAR}  and status = 0
+  </select>
+    <select id="viewAllPub" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from position
+    where username = #{username,jdbcType=VARCHAR}  and status = 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from position
+    where posid = #{posid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="qjob.model.Position" >
+    insert into position (posid, posname, salary, 
+      postype, education, times, 
+      posdescription,status, username
+      )
+    values (#{posid,jdbcType=INTEGER}, #{posname,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, 
+      #{postype,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{times,jdbcType=VARCHAR}, 
+      #{posdescription,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="qjob.model.Position" >
+    insert into position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="posid != null" >
+        posid,
+      </if>
+      <if test="posname != null" >
+        posname,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="postype != null" >
+        postype,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="posdescription != null" >
+        posdescription,
+      </if>
+      <if test="ststus != null" >
+        ststus,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="posid != null" >
+        #{posid,jdbcType=INTEGER},
+      </if>
+      <if test="posname != null" >
+        #{posname,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="postype != null" >
+        #{postype,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="posdescription != null" >
+        #{posdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="ststus != null" >
+        #{ststus,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qjob.model.Position" >
+    update position
+    <set >
+      <if test="posname != null" >
+        posname = #{posname,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="postype != null" >
+        postype = #{postype,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="posdescription != null" >
+        posdescription = #{posdescription,jdbcType=VARCHAR},
+      </if>
+       <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where posid = #{posid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qjob.model.Position" >
+    update position
+    set posname = #{posname,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      postype = #{postype,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      times = #{times,jdbcType=VARCHAR},
+      posdescription = #{posdescription,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR}
+    where posid = #{posid,jdbcType=INTEGER}
+  </update>
+   <update id="pubPosition" parameterType="java.lang.Integer" >
+    update position
+    set status = 1   
+    where posid = #{posid,jdbcType=INTEGER}
+  </update>
+     <update id="revokePosition" parameterType="java.lang.Integer" >
+    update position
+    set status = 0   
+    where posid = #{posid,jdbcType=INTEGER}
+  </update>
+  
+</mapper>
